@@ -5,6 +5,7 @@ This repository forms the completed Brandwatch challenge. This is my first proje
 ## Quick start
 
 * Download the source. 
+* Navitgate to route and npm install
 * Run gulp serve-prod (minified code) or gulp serve-dev
 * Navigate to http://localhost:8080/
 
