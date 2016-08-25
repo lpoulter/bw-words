@@ -4,6 +4,7 @@ var wordCloudApp = wordCloudApp || {};
 /**
  * Model for Topic.
  * Sets font size and color attributes
+ * To use model Collection must provide rangeCutOffs
  */
 wordCloudApp.TopicModel = Backbone.Model.extend({
     initialize: function (attributes, options) {
@@ -34,11 +35,15 @@ wordCloudApp.TopicModel = Backbone.Model.extend({
         var volume = this.get('volume');
         var fontSizes = ['xs', 's', 'md', 'lg', 'xl', 'xxl'];
 
-        var cutOff = _.find(rangeCutOffs, function (cutOff) {
+        var index = -1;
+        //count index's until we reach the topics place in the collections
+        //use index to assign a font bucket
+        _.find(rangeCutOffs, function (cutOff) {
+            index++;
             return volume <= cutOff;
         });
 
-        var fontSize = fontSizes[rangeCutOffs.indexOf(cutOff)];
+        var fontSize = fontSizes[index];
 
         this.set('fontSize', fontSize);
     }

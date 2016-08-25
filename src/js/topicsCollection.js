@@ -15,7 +15,9 @@ wordCloudApp.TopicsCollection = Backbone.Collection.extend({
         //json file format {topics:[]}
         var topics = response.topics;
 
-        this.rangeCutOffs = this.findSizes(topics);
+        var volumesArr = this.getVolumesArr(topics);
+
+        this.rangeCutOffs = this.findCutOffs(topics, volumesArr);
 
         return topics;
     },
@@ -23,14 +25,16 @@ wordCloudApp.TopicsCollection = Backbone.Collection.extend({
      * given an array of topics finds the 6 cut of values
      * used in model to set font-size for each topic
      * @param topics
+     * @param volumesArr -volumes in topic
      * @returns {Array}
      */
-    findSizes: function (topics) {
-        var volumesArr = this.getVolumesArr(topics);
+    findCutOffs: function (topics, volumesArr) {
+
         //find 1/6 of topics length rounded up
         var sizeOfPods = Math.ceil(volumesArr.length/ 6);
         //we want 6 cut offs one for each font-size
         var rangeCutOffs = [];
+
         _.each(volumesArr,function (ele, index) {
             //save every x element in rangeCutOffs
             if(( (index +1) % sizeOfPods ) === 0  ){
@@ -42,14 +46,14 @@ wordCloudApp.TopicsCollection = Backbone.Collection.extend({
 
     },
     /**
-     * helper function to extract volumes from topics
+     * helper function to extract sorted volumes from topics
      * @returns {Array} -sorted, of volumes
      */
     getVolumesArr: function (topics) {
-        var volumes = [];
-        _.each(topics, function (item) {
-            volumes.push(item.volume);
-        }, this);
+
+        var volumes = _.map(topics, function (item) {
+            return item.volume;
+        });
         //sort by int
         volumes.sort(function(a,b) {
             return a - b;

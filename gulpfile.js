@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var gulp = require('gulp');
+var http = require('http');
 var gulpIf = require('gulp-if');
 
 // Load all gulp plugins automatically
@@ -160,6 +161,25 @@ gulp.task('useref', function () {
         .pipe(plugins.useref())
         .pipe(gulpIf('*.js', plugins.uglify()))
         .pipe(gulp.dest('dist'));
+});
+
+gulp.task('coverage', function () {
+
+    var coverageServer = http.createServer(function (req, resp) {
+        req.pipe(fs.createWriteStream('coverage.json'));
+        resp.end()
+    });
+
+    var port = 7358;
+    coverageServer.listen(port);
+    console.log("Coverage Server Started on port", port);
+});
+
+gulp.task('testem', ['coverage'], function () {
+    gulp.src([''])
+        .pipe(plugins.testem({
+            configFile: 'testem.json'
+        }));
 });
 
 // ---------------------------------------------------------------------
