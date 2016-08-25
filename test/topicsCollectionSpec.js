@@ -1,7 +1,8 @@
 /**
  * Created by Laurie on 25/08/2016.
  */
-var should = chai.should();
+
+var wordCloudApp = {};
 var expect = chai.expect;
 var topics =[
         {
@@ -29,9 +30,9 @@ function topicsFactory(amount) {
     var topics = [];
     var volumes = [];
 
-    for(i = 0 ; i< amount; i++){
+    for(var i = 0 ; i< amount; i++){
         //random number -500 to 500
-        var random = Math.floor(Math.random() * (500 - -500 + 1) + -500);
+        var random = Math.floor(Math.random() * (500 - (-500 + 1)) + -500);
         volumes.push(random);
         var topic = { volume: random};
         topics.push(topic);
@@ -45,7 +46,7 @@ function topicsFactory(amount) {
         volumes: volumes
     };
 
-    return topicsWithVolumes
+    return topicsWithVolumes;
 }
 
 var topicCollection = {};

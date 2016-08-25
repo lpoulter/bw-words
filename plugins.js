@@ -7,7 +7,7 @@
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
         'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
         'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn','gulp-concat',
-        'gulp-rename', 'gulp-uglify', 'gulp-useref', 'connect', 'testem'
+        'gulp-rename', 'gulp-uglify', 'gulp-useref', 'connect', 'testem', 'gulp-clean-css'
     ];
     var length = methods.length;
     var console = (window.console = window.console || {});

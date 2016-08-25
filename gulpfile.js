@@ -4,6 +4,7 @@ var path = require('path');
 var gulp = require('gulp');
 var http = require('http');
 var gulpIf = require('gulp-if');
+var cleanCSS = require('gulp-clean-css');
 
 // Load all gulp plugins automatically
 // and attach them to the `plugins` object
@@ -74,8 +75,6 @@ gulp.task('clean', function (done) {
 gulp.task('copy', [
     'copy:.htaccess',
     'copy:jquery',
-    'copy:license',
-    'copy:main.css',
     'copy:misc',
     'copy:normalize'
 ]);
@@ -92,25 +91,6 @@ gulp.task('copy:jquery', function () {
         .pipe(gulp.dest(dirs.dist + '/vendor'));
 });
 
-gulp.task('copy:license', function () {
-    return gulp.src('LICENSE.txt')
-        .pipe(gulp.dest(dirs.dist));
-});
-
-gulp.task('copy:main.css', function () {
-
-    var banner = '/*! HTML5 Boilerplate v' + pkg.version +
-        ' | ' + pkg.license.type + ' License' +
-        ' | ' + pkg.homepage + ' */\n\n';
-
-    return gulp.src(dirs.src + '/css/main.css')
-        .pipe(plugins.header(banner))
-        .pipe(plugins.autoprefixer({
-            browsers: ['last 2 versions', 'ie >= 8', '> 1%'],
-            cascade: false
-        }))
-        .pipe(gulp.dest(dirs.dist + '/css'));
-});
 
 gulp.task('copy:misc', function () {
     return gulp.src([
@@ -163,11 +143,17 @@ gulp.task('useref', function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('minify-css', function() {
+    return gulp.src('src/css/*.css')
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(gulp.dest('dist/css'));
+});
+
 gulp.task('coverage', function () {
 
     var coverageServer = http.createServer(function (req, resp) {
         req.pipe(fs.createWriteStream('coverage.json'));
-        resp.end()
+        resp.end();
     });
 
     var port = 7358;
@@ -209,7 +195,7 @@ gulp.task('serve-prod', function () {
 });
 
 gulp.task('build', function (done) {
-    runSequence('clean', 'lint:js', 'concat', 'useref', 'copy',
+    runSequence('clean', 'lint:js', 'concat', 'useref', 'minify-css', 'copy',
         done);
 });
 

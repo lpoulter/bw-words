@@ -1,10 +1,11 @@
 /**
  * Created by Laurie on 25/08/2016.
  */
+
+var wordCloudApp = {};
 var should = chai.should();
 var expect = chai.expect;
 
-var model = {sentimentScore: 10};
 var options = {
     collection: {
         rangeCutOffs: [1, 2, 3, 4]
