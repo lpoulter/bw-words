@@ -2,7 +2,7 @@
  * Created by Laurie on 25/08/2016.
  */
 
-var wordCloudApp = {};
+var wordCloudApp = wordCloudApp || {};
 var expect = chai.expect;
 var topics =[
         {

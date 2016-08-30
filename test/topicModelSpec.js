@@ -1,8 +1,7 @@
 /**
  * Created by Laurie on 25/08/2016.
  */
-
-var wordCloudApp = {};
+var wordCloudApp = wordCloudApp || {};
 var should = chai.should();
 var expect = chai.expect;
 

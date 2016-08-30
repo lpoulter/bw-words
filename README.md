@@ -3,11 +3,21 @@
 This repository forms the completed Brandwatch challenge. This is my first project using Backbone.
 
 ## Quick start
-
 * Download the source. 
-* Navitgate to project root and npm install
-* Run gulp serve-prod (minified code) or gulp serve-dev
+* Navigate to project root and npm install
+* npm run build
+* npm run serve-prod
 * Navigate to http://localhost:8080/
+
+## Tests
+
+npm run test
+Navigate to http://localhost:7357/
+
+There are currently 17 unit tests that focus on the word size and color functions however these could be improved on by adding more integration tests 
+once I gain more knowledge of the Backbone framework. Unfortunately there is a console error, which does not affect running of the tests, 
+caused by the application attempting to read in the topics.json. I ran out of time to rectify this issue but would be solved if 
+I move the responsibility of fetching the collection from the collection its self - likely better code anyway.
 
 ## Application Structure
 
