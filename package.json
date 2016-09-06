@@ -51,7 +51,6 @@
   "name": "bw-words",
   "private": true,
   "scripts": {
-    "start": "gulp serve-prod",
     "build": "gulp build",
     "test": "gulp testem",
     "serve-prod": "gulp serve-prod",
